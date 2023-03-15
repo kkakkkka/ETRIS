@@ -3,10 +3,14 @@
 This is an official PyTorch implementation of the PERIS.
 
 ## Framework
-<p align="center">
-  <img src="img/arch.png" width="600">
-</p>
+<div align="center">
+<img src="img/demo.gif" alt="teaser" style="zoom:50%;" />
 
+### Overall Architecture
+
+<img src="img/arch.png">
+
+</div>
 
 ## Preparation
 
