@@ -3,9 +3,10 @@
 This is an official PyTorch implementation of the ETRIS.
 
 
-<div align="center">
-<img src="img/demo.gif" alt="teaser" style="zoom:50%;" />
+<div align="center" width="300px" height="400px">
+<img src="img/demo.gif" alt="teaser" />
 </div>
+
 ## Overall Architecture
 
 <img src="img/arch.png">
