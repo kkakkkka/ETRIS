@@ -30,19 +30,12 @@ def train(train_loader, model, optimizer, scheduler, scaler, epoch, args):
     time.sleep(2)
     end = time.time()
 
-    # size_list = [320, 352, 384, 416, 448, 480, 512]
-    # idx = np.random.choice(len(size_list))
-    # new_size = size_list[idx]
-
     for i, (image, text, target) in enumerate(train_loader):
         data_time.update(time.time() - end)
         # data
         image = image.cuda(non_blocking=True)
         text = text.cuda(non_blocking=True)
         target = target.cuda(non_blocking=True).unsqueeze(1)
-
-        # # multi-scale training
-        # image = F.interpolate(image, size=(new_size, new_size), mode='bilinear')
 
         # forward
         with amp.autocast():
@@ -71,20 +64,6 @@ def train(train_loader, model, optimizer, scheduler, scaler, epoch, args):
         lr.update(scheduler.get_last_lr()[-1])
         batch_time.update(time.time() - end)
         end = time.time()
-        exit()
-        if (i + 1) % args.print_freq == 0:
-            progress.display(i + 1)
-            # if dist.get_rank() in [-1, 0]:
-            #     wandb.log(
-            #         {
-            #             "time/batch": batch_time.val,
-            #             "time/data": data_time.val,
-            #             "training/lr": lr.val,
-            #             "training/loss": loss_meter.val,
-            #             "training/iou": iou_meter.val,
-            #             "training/prec@50": pr_meter.val,
-            #         },
-            #         step=epoch * len(train_loader) + (i + 1))
 
 
 @torch.no_grad()

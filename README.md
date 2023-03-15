@@ -1,16 +1,15 @@
 # Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation
 
-This is an official PyTorch implementation of the PERIS.
+This is an official PyTorch implementation of the ETRIS.
 
-## Framework
+
 <div align="center">
 <img src="img/demo.gif" alt="teaser" style="zoom:50%;" />
-
-### Overall Architecture
+</div>
+## Overall Architecture
 
 <img src="img/arch.png">
 
-</div>
 
 ## Preparation
 

@@ -104,14 +104,12 @@ class AttentionPool2d(nn.Module):
                                          mode='bicubic')
         cls_token_weight = cls_token_weight.unsqueeze(1)
         pos_embed_weight = torch.flatten(pos_embed_weight, 2).transpose(1, 2)
-        # pos_embed = torch.cat((cls_token_weight, pos_embed_weight), dim=1)
         return pos_embed_weight.transpose(-2, -1)
 
     def forward(self, x):
         B, C, H, W = x.size()
         res = self.connect(x)
         x = x.reshape(B, C, -1)  # NC(HW)
-        # x = torch.cat([x.mean(dim=-1, keepdim=True), x], dim=-1)  # NC(1+HW)
         pos_embed = self.positional_embedding.unsqueeze(0)
         pos_embed = self.resize_pos_embed(pos_embed, (H, W))  # NC(HW)
         x = x + pos_embed.to(x.dtype)  # NC(HW)
@@ -325,7 +323,6 @@ class VisionTransformer(nn.Module):
         x = self.transformer(x)
         x = x.permute(1, 0, 2)  # LND -> NLD
 
-        # x = self.ln_post(x[:, 0, :])
         x = self.ln_post(x[:, 1:, :])
 
         if self.proj is not None:
@@ -448,12 +445,9 @@ class CLIP(nn.Module):
         x = x.permute(1, 0, 2)  # LND -> NLD
         x = self.ln_final(x).type(self.dtype)
 
-        # x.shape = [batch_size, n_ctx, transformer.width]
         # take features from the eot embedding (eot_token is the highest number in each sequence)
         state = x[torch.arange(x.shape[0]),
                   text.argmax(dim=-1)] @ self.text_projection
-        # x = x @ self.text_projection
-        # state = x[torch.arange(x.shape[0]), text.argmax(dim=-1)]
 
         return x, state
 

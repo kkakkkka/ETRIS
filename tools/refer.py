@@ -312,41 +312,6 @@ class REFER:
         # compute area
         area = sum(mask.area(rle))  # should be close to ann['area']
         return {'mask': m, 'area': area}
-        # # position
-        # position_x = np.mean(np.where(m==1)[1]) # [1] means columns (matlab style) -> x (c style)
-        # position_y = np.mean(np.where(m==1)[0]) # [0] means rows (matlab style)    -> y (c style)
-        # # mass position (if there were multiple regions, we use the largest one.)
-        # label_m = label(m, connectivity=m.ndim)
-        # regions = regionprops(label_m)
-        # if len(regions) > 0:
-        # 	largest_id = np.argmax(np.array([props.filled_area for props in regions]))
-        # 	largest_props = regions[largest_id]
-        # 	mass_y, mass_x = largest_props.centroid
-        # else:
-        # 	mass_x, mass_y = position_x, position_y
-        # # if centroid is not in mask, we find the closest point to it from mask
-        # if m[mass_y, mass_x] != 1:
-        # 	print 'Finding closes mask point ...'
-        # 	kernel = np.ones((10, 10),np.uint8)
-        # 	me = cv2.erode(m, kernel, iterations = 1)
-        # 	points = zip(np.where(me == 1)[0].tolist(), np.where(me == 1)[1].tolist())  # row, col style
-        # 	points = np.array(points)
-        # 	dist   = np.sum((points - (mass_y, mass_x))**2, axis=1)
-        # 	id     = np.argsort(dist)[0]
-        # 	mass_y, mass_x = points[id]
-        # 	# return
-        # return {'mask': m, 'area': area, 'position_x': position_x, 'position_y': position_y, 'mass_x': mass_x, 'mass_y': mass_y}
-        # # show image and mask
-        # I = io.imread(osp.join(self.IMAGE_DIR, image['file_name']))
-        # plt.figure()
-        # plt.imshow(I)
-        # ax = plt.gca()
-        # img = np.ones( (m.shape[0], m.shape[1], 3) )
-        # color_mask = np.array([2.0,166.0,101.0])/255
-        # for i in range(3):
-        #     img[:,:,i] = color_mask[i]
-        # ax.imshow(np.dstack( (img, m*0.5) ))
-        # plt.show()
 
     def showMask(self, ref):
         M = self.getMask(ref)
@@ -377,6 +342,3 @@ if __name__ == '__main__':
         refer.showRef(ref, seg_box='box')
         plt.show()
 
-        # plt.figure()
-        # refer.showMask(ref)
-        # plt.show()
