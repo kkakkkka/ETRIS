@@ -50,6 +50,7 @@ bash run_scripts/test.sh
 ```
 
 ## Acknowledgements
+The code is based on [CRIS](https://github.com/DerrickWang005/CRIS.pytorch). We thank the authors for their open-sourced code and encourage users to cite their works when applicable.
 
 ## Citation
 If ETRIS is useful for your research, please consider citing:
