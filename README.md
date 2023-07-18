@@ -1,6 +1,6 @@
-# Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation
+# ETRIS
 
-This is an official PyTorch implementation of the ETRIS.
+This is an official PyTorch implementation of [Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation]().
 
 
 <div align="center" width="300px" height="400px">
