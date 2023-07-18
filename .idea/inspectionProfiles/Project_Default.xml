@@ -1,0 +1,36 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="605" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="tuple.batch_size" />
+          <option value="tuple.max_num_imgs" />
+          <option value="tuple.past_length" />
+          <option value="tuple.img_fusion_num_layers" />
+          <option value="tuple.img_fusion" />
+          <option value="tuple.img_fusion_num_heads" />
+          <option value="tuple.txt_decoder" />
+          <option value="tuple.img_encoder" />
+          <option value="tuple.lr_img_encoder" />
+          <option value="tuple.weight_decay" />
+          <option value="tuple.lr_txt_encoder" />
+          <option value="tuple.lr" />
+          <option value="tuple.num_gpus" />
+          <option value="tuple.scheduler_warmup_ratio" />
+          <option value="tuple.scheduler_type" />
+          <option value="tuple.scheduler_lr_end" />
+          <option value="tuple.scheduler_power" />
+          <option value="tuple.*" />
+          <option value="bool.sum" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
