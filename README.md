@@ -1,6 +1,6 @@
 # ETRIS
 
-This is an official PyTorch implementation of [Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation]().
+This is an official PyTorch implementation of [Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation](https://arxiv.org/abs/2307.11545).
 
 
 <div align="center" width="300px" height="400px">
@@ -55,10 +55,10 @@ The code is based on [CRIS](https://github.com/DerrickWang005/CRIS.pytorch). We 
 ## Citation
 If ETRIS is useful for your research, please consider citing:
 ```angular2html
-@inproceedings{xu2022etris,
+@article{xu2023bridging,
   title={Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation},
-  author={Xu, Zunnan and Chen, Zhihong and Zhang, Yong and Song Yibing and Wan, Xiang and Li, Guanbin},
-  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  author={Xu, Zunnan and Chen, Zhihong and Zhang, Yong and Song, Yibing and Wan, Xiang and Li, Guanbin},
+  journal={arXiv preprint arXiv:2307.11545},
   year={2023}
 }
 ```
