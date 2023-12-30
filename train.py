@@ -71,7 +71,7 @@ def main_worker(gpu, args):
     # local rank & global rank
     args.gpu = gpu
     args.rank = args.rank * args.ngpus_per_node + gpu
-    # torch.backends.cudnn.enabled = False
+    torch.backends.cudnn.enabled = False
     torch.cuda.set_device(args.gpu)
     
 
@@ -108,8 +108,8 @@ def main_worker(gpu, args):
     logger.info(model)
     model = nn.parallel.DistributedDataParallel(model.cuda(),
                                                 device_ids=[args.gpu],
-                                                # find_unused_parameters=False)
-                                                find_unused_parameters=True)
+                                                find_unused_parameters=False)
+                                                # find_unused_parameters=True)
 
     # build optimizer & lr scheduler
     optimizer = torch.optim.Adam(param_list, lr=args.base_lr, weight_decay=args.weight_decay)
