@@ -21,6 +21,7 @@ from loguru import logger
 from torch.optim.lr_scheduler import MultiStepLR
 
 import utils.config as config
+import wandb
 from utils.dataset import RefDataset
 from engine.engine import train, validate
 from model import build_segmenter
@@ -70,7 +71,7 @@ def main_worker(gpu, args):
     # local rank & global rank
     args.gpu = gpu
     args.rank = args.rank * args.ngpus_per_node + gpu
-    torch.backends.cudnn.enabled = False
+    # torch.backends.cudnn.enabled = False
     torch.cuda.set_device(args.gpu)
     
 
@@ -81,12 +82,23 @@ def main_worker(gpu, args):
                  mode="a")
 
     # dist init
+    # dist.init_process_group(backend=args.dist_backend,
+    #                         # init_method=args.dist_url,
+    #                         init_method=f'tcp://localhost:{random.randint(6000, 7000)}',
+    #                         world_size=args.world_size,
+    #                         rank=args.rank,)
     dist.init_process_group(backend=args.dist_backend,
-                            # init_method=args.dist_url,
-                            init_method=f'tcp://localhost:{random.randint(6000, 7000)}',
+                            init_method=args.dist_url,
                             world_size=args.world_size,
-                            rank=args.rank,)
-
+                            rank=args.rank)
+    # wandb
+    if args.rank == 0:
+        wandb.init(job_type="training",
+                   mode="offline",
+                   config=args,
+                   project="ETRIS",
+                   name=args.exp_name,
+                   tags=[args.dataset, args.clip_pretrain])
     dist.barrier()
 
     # build model
@@ -96,8 +108,8 @@ def main_worker(gpu, args):
     logger.info(model)
     model = nn.parallel.DistributedDataParallel(model.cuda(),
                                                 device_ids=[args.gpu],
-                                                find_unused_parameters=False)
-                                                # find_unused_parameters=True)
+                                                # find_unused_parameters=False)
+                                                find_unused_parameters=True)
 
     # build optimizer & lr scheduler
     optimizer = torch.optim.Adam(param_list, lr=args.base_lr, weight_decay=args.weight_decay)
@@ -201,6 +213,8 @@ def main_worker(gpu, args):
         torch.cuda.empty_cache()
 
     time.sleep(2)
+    if dist.get_rank() == 0:
+        wandb.finish()
 
     logger.info("* Best IoU={} * ".format(best_IoU))
     total_time = time.time() - start_time
