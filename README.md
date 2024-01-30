@@ -49,16 +49,22 @@ To do evaluation of ETRIS, modify the script according to your requirement and r
 bash run_scripts/test.sh
 ```
 
+## Weights
+
+The weights of our model have been made available at the following link: [https://pan.baidu.com/s/1jaOJKdIg1t8wnWrxgCkkRA?pwd=vmyv](https://pan.baidu.com/s/1jaOJKdIg1t8wnWrxgCkkRA?pwd=vmyv) 
+Please note that you may need to enter the password "vmyv" to access the files.
+
 ## Acknowledgements
 The code is based on [CRIS](https://github.com/DerrickWang005/CRIS.pytorch). We thank the authors for their open-sourced code and encourage users to cite their works when applicable.
 
 ## Citation
 If ETRIS is useful for your research, please consider citing:
 ```angular2html
-@article{xu2023bridging,
-  title={Bridging Vision and Language Encoders: Parameter-Efficient Tuning for Referring Image Segmentation},
+@inproceedings{xu2023bridging,
+  title={Bridging vision and language encoders: Parameter-efficient tuning for referring image segmentation},
   author={Xu, Zunnan and Chen, Zhihong and Zhang, Yong and Song, Yibing and Wan, Xiang and Li, Guanbin},
-  journal={arXiv preprint arXiv:2307.11545},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={17503--17512},
   year={2023}
 }
 ```
