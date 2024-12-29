@@ -12,7 +12,6 @@ import cv2
 import torch
 import torch.cuda.amp as amp
 import torch.distributed as dist
-import torch.multiprocessing as mp
 import torch.nn as nn
 import torch.nn.parallel
 import torch.optim
@@ -35,6 +34,7 @@ cv2.setNumThreads(0)
 def get_parser():
     parser = argparse.ArgumentParser(
         description='Pytorch Referring Expression Segmentation')
+    parser.add_argument("--gpu", default="0,1")
     parser.add_argument('--config',
                         default='path to xxx.yaml',
                         type=str,
@@ -60,17 +60,18 @@ def main():
 
     args.ngpus_per_node = torch.cuda.device_count()
     args.world_size = args.ngpus_per_node * args.world_size
-    mp.spawn(main_worker, nprocs=args.ngpus_per_node, args=(args, ))
+    main_worker(args)
 
 
-def main_worker(gpu, args):
+def main_worker(args):
     args.exp_name = '_'.join([args.exp_name] + [str(name) for name in [args.ladder_dim, args.nhead, args.dim_ffn, args.multi_stage]])
     
     args.output_dir = os.path.join(args.output_folder, args.exp_name)
-
+    dist.init_process_group(backend="nccl")
+    local_rank = int(os.environ["LOCAL_RANK"])
     # local rank & global rank
-    args.gpu = gpu
-    args.rank = args.rank * args.ngpus_per_node + gpu
+    args.gpu = local_rank
+    args.rank = local_rank
     torch.backends.cudnn.enabled = False
     torch.cuda.set_device(args.gpu)
     
@@ -80,17 +81,6 @@ def main_worker(gpu, args):
                  distributed_rank=args.gpu,
                  filename="train.log",
                  mode="a")
-
-    # dist init
-    # dist.init_process_group(backend=args.dist_backend,
-    #                         # init_method=args.dist_url,
-    #                         init_method=f'tcp://localhost:{random.randint(6000, 7000)}',
-    #                         world_size=args.world_size,
-    #                         rank=args.rank,)
-    dist.init_process_group(backend=args.dist_backend,
-                            init_method=args.dist_url,
-                            world_size=args.world_size,
-                            rank=args.rank)
     # wandb
     if args.rank == 0:
         wandb.init(job_type="training",
