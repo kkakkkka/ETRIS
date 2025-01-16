@@ -6,6 +6,11 @@ This is an official PyTorch implementation of [Bridging Vision and Language Enco
 <img src="img/demo.gif" alt="teaser" height="280px" />
 </div>
 
+## News
+
+:triangular_flag_on_post: **Updates** 
+- :fire::fire: Our new referring image segmentation work **[DETRIS](https://github.com/jiaqihuang01/DETRIS)** was accepted to AAAI 2025, which has over a 10 average IoU improvement using adapters with fewer parameters!
+
 ## Overall Architecture
 
 <img src="img/arch.png">
