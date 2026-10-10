@@ -61,7 +61,7 @@ If you want to visualize the results, simply modify the `visualize` to `True` in
 
 ## Weights
 
-Our model weights have already been open-sourced and can be directly downloaded from [Huggingface](https://huggingface.co/kkakkkka/ETRIS/tree/main).
+Our model weights have already been open-sourced and can be directly downloaded from [Huggingface](https://huggingface.co/thuteam/ETRIS/tree/main).
 
 ## Acknowledgements
 
